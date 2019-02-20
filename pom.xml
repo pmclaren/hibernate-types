@@ -152,7 +152,6 @@
                     <target>${jdk.version}</target>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
-                    <executable>${jdk}/bin/javac</executable>
                     <fork>true</fork>
                 </configuration>
             </plugin>
@@ -160,7 +159,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <jvm>${jdk}/bin/java</jvm>
                     <forkMode>always</forkMode>
                     <useSystemClassLoader>false</useSystemClassLoader>
                 </configuration>
@@ -262,8 +260,7 @@
     </distributionManagement>
 
     <properties>
-        <jdk.version>6</jdk.version>
-        <jdk>${env.JAVA_HOME_6}</jdk>
+        <jdk.version>8</jdk.version>
         <reuseForks>false</reuseForks>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
