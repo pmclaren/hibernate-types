@@ -25,9 +25,9 @@ import java.util.Properties;
  */
 public class Configuration {
 
-    public static final Configuration INSTANCE = new Configuration();
-
     private static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
+
+    public static final Configuration INSTANCE = new Configuration();
 
     public static final String PROPERTIES_FILE_PATH = "hibernate-types.properties.path";
     public static final String PROPERTIES_FILE_NAME = "hibernate-types.properties";
@@ -37,7 +37,8 @@ public class Configuration {
      */
     public enum PropertyKey {
         JACKSON_OBJECT_MAPPER("hibernate.types.jackson.object.mapper"),
-        JSON_SERIALIZER("hibernate.types.json.serializer");
+        JSON_SERIALIZER("hibernate.types.json.serializer"),
+        PRINT_BANNER("hibernate.types.print.banner");
 
         private final String key;
 
@@ -54,11 +55,10 @@ public class Configuration {
 
     public Configuration() {
         load();
-    }
 
-    public Configuration(Properties overridingProperties) {
-        this();
-        properties.putAll(overridingProperties);
+        if(ReflectionUtils.getClassOrNull("io.hypersistence.optimizer.HypersistenceOptimizer") == null) {
+            printBanner();
+        }
     }
 
     /**
@@ -260,5 +260,63 @@ public class Configuration {
             }
         }
         return object;
+    }
+
+    /**
+     * Print the banner into the log.
+     */
+    private void printBanner() {
+        String printBannerValue = properties.getProperty(PropertyKey.PRINT_BANNER.getKey());
+        if(printBannerValue != null && !Boolean.valueOf(printBannerValue)) {
+            return;
+        }
+
+        Logger logger = LoggerFactory.getLogger("Hypersistence Optimizer");
+
+        printWarning("You should use Hypersistence Optimizer to speed up your Hibernate application!", logger);
+        printWarning("For more details, go to https://vladmihalcea.com/hypersistence-optimizer/", logger);
+
+
+        printInfo(
+            StringUtils.join(
+                StringUtils.LINE_SEPARATOR,
+                "",
+                " _    _                           _     _",
+                "| |  | |                         (_)   | |",
+                "| |__| |_   _ _ __   ___ _ __ ___ _ ___| |_ ___ _ __   ___ ___",
+                "|  __  | | | | '_ \\ / _ \\ '__/ __| / __| __/ _ \\ '_ \\ / __/ _ \\",
+                "| |  | | |_| | |_) |  __/ |  \\__ \\ \\__ \\ ||  __/ | | | (_|  __/",
+                "|_|  |_|\\__, | .__/ \\___|_|  |___/_|___/\\__\\___|_| |_|\\___\\___|",
+                "         __/ | |",
+                "        |___/|_|",
+                "",
+                "           ____        _   _           _",
+                "          / __ \\      | | (_)         (_)",
+                "         | |  | |_ __ | |_ _ _ __ ___  _ _______ _ __",
+                "         | |  | | '_ \\| __| | '_ ` _ \\| |_  / _ \\ '__|",
+                "         | |__| | |_) | |_| | | | | | | |/ /  __/ |",
+                "          \\____/| .__/ \\__|_|_| |_| |_|_/___\\___|_|",
+                "                | |",
+                "                |_|",
+                ""
+            ),
+            logger
+        );
+    }
+
+    private void printWarning(String message, Logger logger) {
+        if (logger.isWarnEnabled()) {
+            logger.warn(message);
+        } else {
+            System.out.println(message);
+        }
+    }
+
+    private void printInfo(String message, Logger logger) {
+        if (logger.isInfoEnabled()) {
+            logger.info(message);
+        } else {
+            System.out.println(message);
+        }
     }
 }

@@ -30,10 +30,12 @@ The main advantage of this project is that it supports a broad range of Hibernat
 * [How to map a PostgreSQL HStore entity property with JPA and Hibernate](https://vladmihalcea.com/map-postgresql-hstore-jpa-entity-property-hibernate/)
 * [How to map a PostgreSQL Enum ARRAY to a JPA entity property using Hibernate](https://vladmihalcea.com/map-postgresql-enum-array-jpa-entity-property-hibernate/)
 * [How to map a PostgreSQL Range column type with JPA and Hibernate](https://vladmihalcea.com/map-postgresql-range-column-type-jpa-hibernate/)
+* [How to map a PostgreSQL Interval to a Java `Duration` with Hibernate](https://vladmihalcea.com/map-postgresql-interval-java-duration-hibernate/)
 
 #### Generic Types
 
-* [`java.time.YearMonth` to DATE or INTEGER column](https://vladmihalcea.com/java-yearmonth-jpa-hibernate/)
+* [How to map `java.time.YearMonth` to DATE or INTEGER column](https://vladmihalcea.com/java-yearmonth-jpa-hibernate/)
+* [How to map `java.time.Year` and `java.time.Month` with JPA and Hibernate](https://vladmihalcea.com/java-time-year-month-jpa-hibernate/)
 * [`Character` to nullable CHAR column](https://vladmihalcea.com/how-to-implement-a-custom-basic-type-using-hibernate-usertype/)
 * [`ImmutableType` utility to simplify `UserType` implementations](https://vladmihalcea.com/how-to-implement-a-custom-basic-type-using-hibernate-usertype/)
 
@@ -43,15 +45,33 @@ The main advantage of this project is that it supports a broad range of Hibernat
 
 ### Are you struggling with application performance issues?
 
-I could help you get the most out of your data access layer.
+<a href="https://vladmihalcea.com/hypersistence-optimizer/?utm_source=GitHub&utm_medium=banner&utm_campaign=hibernatetypes">
+<img src="https://vladmihalcea.com/wp-content/uploads/2019/03/Hypersistence-Optimizer-300x250.jpg" alt="Hypersistence Optimizer">
+</a>
+
+Imagine having a tool that can automatically detect if you are using JPA and Hibernate properly. No more performance issues, no more having to spend countless hours trying to figure out why your application is barely crawling.
+
+Imagine discovering early during the development cycle that you are using suboptimal mappings and entity relationships or that you are missing performance-related settings. 
+
+More, with Hypersistence Optimizer, you can detect all such issues during testing and make sure you don't deploy to production a change that will affect data access layer performance.
+
+[Hypersistence Optimizer](https://vladmihalcea.com/hypersistence-optimizer/?utm_source=GitHub&utm_medium=banner&utm_campaign=hibernatetypes) is the tool you've been long waiting for!
+
+#### Training
 
 If you are interested in on-site training, I can offer you my [High-Performance Java Persistence training](https://vladmihalcea.com/trainings/?utm_source=GitHub&utm_medium=banner&utm_campaign=hibernatetypes)
 which can be adapted to one, two or three days of sessions. For more details, check out [my website](https://vladmihalcea.com/trainings/?utm_source=GitHub&utm_medium=banner&utm_campaign=hibernatetypes).
 
+#### Consulting
+
 If you want me to review your application and provide insight into how you can optimize it to run faster, 
 then check out my [consulting page](https://vladmihalcea.com/consulting/?utm_source=GitHub&utm_medium=banner&utm_campaign=hibernatetypes).
 
+#### High-Performance Java Persistence Video Courses
+
 If you want the fastest way to learn how to speed up a Java database application, then you should definitely enroll in [my High-Performance Java Persistence video courses](https://vladmihalcea.com/courses/?utm_source=GitHub&utm_medium=banner&utm_campaign=hibernatetypes).
+
+#### High-Performance Java Persistence Book
 
 Or, if you prefer reading books, you are going to love my [High-Performance Java Persistence book](https://vladmihalcea.com/books/high-performance-java-persistence?utm_source=GitHub&utm_medium=banner&utm_campaign=hibernatetypes) as well.
 
@@ -72,7 +92,7 @@ Depending on the Hibernate version you are using, you need to following dependen
     <dependency>
         <groupId>com.vladmihalcea</groupId>
         <artifactId>hibernate-types-52</artifactId>
-        <version>2.4.4</version>
+        <version>2.6.1</version>
     </dependency>
 
 #### Hibernate 5.1 and 5.0
@@ -80,7 +100,7 @@ Depending on the Hibernate version you are using, you need to following dependen
     <dependency>
         <groupId>com.vladmihalcea</groupId>
         <artifactId>hibernate-types-5</artifactId>
-        <version>2.4.4</version>
+        <version>2.6.1</version>
     </dependency>
     
 #### Hibernate 4.3
@@ -88,7 +108,7 @@ Depending on the Hibernate version you are using, you need to following dependen
     <dependency>
         <groupId>com.vladmihalcea</groupId>
         <artifactId>hibernate-types-43</artifactId>
-        <version>2.4.4</version>
+        <version>2.6.1</version>
     </dependency>
 
 #### Hibernate 4.2 and 4.1
@@ -96,7 +116,7 @@ Depending on the Hibernate version you are using, you need to following dependen
     <dependency>
         <groupId>com.vladmihalcea</groupId>
         <artifactId>hibernate-types-4</artifactId>
-        <version>2.4.4</version>
+        <version>2.6.1</version>
     </dependency>
 
 ### Requirements
@@ -105,3 +125,20 @@ Depending on the Hibernate version you are using, you need to following dependen
 * SLF4J
 * Jackson Databind
 
+## How to quickly start test environment
+```bash
+cd docker
+docker-compose up -d
+```
+
+## How to quickly access to database logs
+```bash
+docker logs -f mysql-hibernate-types
+docker logs -f postgresql-hibernate-types
+```
+
+## How to quickly terminate test environment
+```bash
+cd docker
+docker-compose down -v
+```
